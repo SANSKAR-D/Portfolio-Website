@@ -1,13 +1,12 @@
 'use client';
 
-import { FaGithub, FaLinkedinIn, FaXTwitter } from 'react-icons/fa6';
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa6';
 import { HiOutlineMail } from 'react-icons/hi';
 
 const socials = [
     { icon: <FaGithub size={20} />, href: 'https://github.com/SANSKAR-D', label: 'GitHub' },
     { icon: <FaLinkedinIn size={20} />, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: <FaXTwitter size={20} />, href: 'https://x.com', label: 'X / Twitter' },
-    { icon: <HiOutlineMail size={20} />, href: 'mailto:hello@example.com', label: 'Email' },
+    { icon: <HiOutlineMail size={20} />, href: 'mailto:sethsanskar@gmail.com', label: 'Email' },
 ];
 
 export default function Footer() {

@@ -8,40 +8,22 @@ const timeline = [
         type: 'education',
         icon: <HiAcademicCap size={22} />,
         title: 'B.Tech in Computer Science',
-        org: 'University Name',
-        date: '2021 — 2025',
-        description: 'Coursework in Data Structures, Algorithms, Operating Systems, and Database Management. CGPA: 8.5/10.',
-    },
-    {
-        type: 'work',
-        icon: <HiBriefcase size={22} />,
-        title: 'Software Engineering Intern',
-        org: 'Company Name',
-        date: 'Summer 2024',
-        description: 'Built microservices for a real-time analytics dashboard. Reduced API response time by 40% using Redis caching.',
-    },
-    {
-        type: 'work',
-        icon: <HiBriefcase size={22} />,
-        title: 'Open-Source Contributor',
-        org: 'Various Projects',
-        date: '2023 — Present',
-        description: 'Contributed to 10+ open-source repos including React ecosystem libraries. Merged 25+ pull requests.',
+        org: 'MNNIT Allahabad',
+        date: '2025 — Present',
+        description: 'Coursework in Data Structures, Algorithms, Operating Systems, and Database Management. SGPA: 9.14/10.',
     },
     {
         type: 'education',
         icon: <HiAcademicCap size={22} />,
         title: 'Higher Secondary (XII)',
-        org: 'School Name',
-        date: '2019 — 2021',
-        description: 'Science stream with Mathematics. Scored 95% in board examinations.',
+        org: 'Modern Public School',
+        date: '2024 — 2025',
+        description: 'Science stream with Mathematics. Scored 93% in board examinations.',
     },
 ];
 
 const certifications = [
-    { title: 'AWS Cloud Practitioner', issuer: 'Amazon Web Services', year: '2024' },
-    { title: 'Full-Stack Web Development', issuer: 'Coursera', year: '2023' },
-    { title: 'Data Structures & Algorithms', issuer: 'Udemy', year: '2023' },
+    { title: '3rd Position in Robotics Competition', issuer: 'MNNIT Allahabad', year: '2025' },
 ];
 
 export default function Experience() {

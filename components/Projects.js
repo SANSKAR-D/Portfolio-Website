@@ -30,7 +30,7 @@ export default function Projects() {
             >
                 <h2 className="section__heading">Projects</h2>
                 <p className="section__subheading">
-                    A collection of things I&apos;ve built — from game engines to full-stack apps.
+                    Things I&apos;ve built - from web apps to systems projects.
                 </p>
             </motion.div>
 
