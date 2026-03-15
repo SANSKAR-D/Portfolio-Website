@@ -339,3 +339,11 @@ input, textarea {
     --text-4xl: 1.5rem;
   }
 }
+
+/* Reduce backdrop-filter cost on mobile for smoother scrolling */
+@media (max-width: 768px) {
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}

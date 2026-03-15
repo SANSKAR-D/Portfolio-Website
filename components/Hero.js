@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import {
@@ -32,6 +32,46 @@ const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
 };
+
+function TypewriterName() {
+    const fullText = 'Sanskar Gupta';
+    const splitAt = 8; // length of "Sanskar "
+    const [charIndex, setCharIndex] = useState(0);
+    const [cursorVisible, setCursorVisible] = useState(true);
+
+    useEffect(() => {
+        // Short initial delay before typing starts
+        const startDelay = setTimeout(() => {
+            setCharIndex(1);
+        }, 600);
+        return () => clearTimeout(startDelay);
+    }, []);
+
+    useEffect(() => {
+        if (charIndex === 0 || charIndex >= fullText.length) {
+            if (charIndex >= fullText.length) {
+                // Hide cursor after typing finishes
+                const hide = setTimeout(() => setCursorVisible(false), 2000);
+                return () => clearTimeout(hide);
+            }
+            return;
+        }
+        const timer = setTimeout(() => setCharIndex(c => c + 1), 120);
+        return () => clearTimeout(timer);
+    }, [charIndex]);
+
+    const displayed = fullText.slice(0, charIndex);
+    const plain = displayed.slice(0, splitAt);
+    const gradient = displayed.slice(splitAt);
+
+    return (
+        <>
+            {plain}
+            {gradient && <span className="gradient-text">{gradient}</span>}
+            {cursorVisible && <span className="hero__cursor" aria-hidden="true">|</span>}
+        </>
+    );
+}
 
 export default function Hero() {
     const modelRef = useRef(null);
@@ -81,7 +121,7 @@ export default function Hero() {
                 </motion.p>
 
                 <motion.h1 className="hero__name" variants={itemVariants}>
-                    Sanskar <span className="gradient-text">Gupta</span>
+                    <TypewriterName />
                 </motion.h1>
 
                 <motion.p className="hero__tagline" variants={itemVariants}>

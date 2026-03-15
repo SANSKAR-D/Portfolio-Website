@@ -7,6 +7,7 @@ import { BsSunFill, BsMoonStarsFill } from 'react-icons/bs';
 
 const navLinks = [
     { label: 'Home', href: '#hero' },
+    { label: 'About', href: '#about' },
     { label: 'Projects', href: '#projects' },
     { label: 'Profiles', href: '#profiles' },
     { label: 'Experience', href: '#experience' },

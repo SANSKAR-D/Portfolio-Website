@@ -1,12 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, Suspense } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
 import { HiPaperAirplane } from 'react-icons/hi';
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa6';
 import { HiOutlineMail } from 'react-icons/hi';
 import { Canvas } from '@react-three/fiber';
-import { useGLTF, OrbitControls, Environment } from '@react-three/drei';
+import { useGLTF, OrbitControls } from '@react-three/drei';
 
 const socials = [
     { icon: <FaGithub size={20} />, href: 'https://github.com/SANSKAR-D', label: 'GitHub' },
@@ -15,7 +15,7 @@ const socials = [
 ];
 
 function PlanetModel() {
-    const { scene } = useGLTF('/stylized_planet.glb');
+    const { scene } = useGLTF('/stylized_planet.glb', true);
     return (
         <primitive
             object={scene}
@@ -30,13 +30,14 @@ function RotatingPlanet() {
         <Canvas
             camera={{ fov: 45, position: [0, 0, 5] }}
             style={{ width: '100%', height: '100%' }}
+            dpr={[1, 1.5]}
+            gl={{ antialias: false, powerPreference: 'high-performance' }}
         >
-            <ambientLight intensity={0.6} />
-            <directionalLight position={[4, 6, 4]} intensity={1.4} color="#a78bfa" />
-            <pointLight position={[-4, -2, -4]} intensity={0.5} color="#6366f1" />
+            <ambientLight intensity={0.8} />
+            <directionalLight position={[4, 6, 4]} intensity={1.6} color="#a78bfa" />
+            <pointLight position={[-4, -2, -4]} intensity={0.6} color="#6366f1" />
             <Suspense fallback={null}>
                 <PlanetModel />
-                <Environment preset="night" />
             </Suspense>
             <OrbitControls
                 enableZoom={false}
@@ -45,6 +46,34 @@ function RotatingPlanet() {
                 autoRotateSpeed={1.8}
             />
         </Canvas>
+    );
+}
+
+/* Only mount the WebGL canvas when the user scrolls near it */
+function LazyPlanet() {
+    const ref = useRef(null);
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const obs = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setVisible(true);
+                    obs.disconnect();
+                }
+            },
+            { rootMargin: '200px' }
+        );
+        obs.observe(el);
+        return () => obs.disconnect();
+    }, []);
+
+    return (
+        <div ref={ref} style={{ width: '100%', height: '100%' }}>
+            {visible && <RotatingPlanet />}
+        </div>
     );
 }
 
@@ -177,7 +206,7 @@ export default function Contact() {
                     transition={{ duration: 0.6, delay: 0.15 }}
                 >
                     <div className="contact__planet-glow" />
-                    <RotatingPlanet />
+                    <LazyPlanet />
                     <p className="contact__planet-label">Somewhere in the universe…</p>
                 </motion.div>
             </div>

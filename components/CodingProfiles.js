@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { SiLeetcode, SiCodeforces } from 'react-icons/si';
 import { FaGithub } from 'react-icons/fa';
 import { HiRefresh } from 'react-icons/hi';
@@ -105,7 +105,7 @@ function ContributionGraph() {
     }, []);
 
     return (
-        <div className="profiles__graph">
+        <div className="profiles__graph glass-card">
             <p className="profiles__graph-title">
                 <FaGithub size={20} /> {total} contributions in the last year
             </p>
@@ -141,51 +141,14 @@ export default function CodingProfiles() {
     const [cooldown, setCooldown] = useState(0);
     const [hasLoaded, setHasLoaded] = useState(false);
 
-    // Initialize from local storage
-    useEffect(() => {
-        const savedStats = localStorage.getItem('codingProfileStats');
-        if (savedStats) {
-            setStats(JSON.parse(savedStats));
-        }
-        
-        const savedCooldown = localStorage.getItem('codingProfileCooldown');
-        if (savedCooldown) {
-            const timePassed = Math.floor((Date.now() - parseInt(savedCooldown, 10)) / 1000);
-            const remaining = 15 * 60 - timePassed;
-            if (remaining > 0) {
-                setCooldown(remaining);
-            }
-        }
-        setHasLoaded(true);
-    }, []);
-
-    // Countdown timer for cooldown
-    useEffect(() => {
-        if (cooldown <= 0) return;
-        const timer = setInterval(() => {
-            setCooldown(prev => {
-                if (prev <= 1) {
-                    clearInterval(timer);
-                    return 0;
-                }
-                return prev - 1;
-            });
-        }, 1000);
-        return () => clearInterval(timer);
-    }, [cooldown]);
-
-    const handleRefresh = async () => {
-        if (cooldown > 0 || isRefreshing) return;
-        
+    const fetchStats = useCallback(async () => {
         setIsRefreshing(true);
         try {
-            // Fetch LeetCode Data via local API
-            const lcRes = await fetch('/api/profiles?platform=leetcode&handle=sanskarguptadsa');
-            const lcData = await lcRes.json();
-            
-            // Fetch Codeforces Data via local API
-            const cfRes = await fetch('/api/profiles?platform=codeforces&handle=Sanskar__g');
-            const cfData = await cfRes.json();
+            const [lcRes, cfRes] = await Promise.all([
+                fetch('/api/profiles?platform=leetcode&handle=sanskarguptadsa'),
+                fetch('/api/profiles?platform=codeforces&handle=Sanskar__g'),
+            ]);
+            const [lcData, cfData] = await Promise.all([lcRes.json(), cfRes.json()]);
 
             const newStats = [
                 {
@@ -206,19 +169,63 @@ export default function CodingProfiles() {
                 }
             ];
 
-            // Update state and local storage
             setStats(newStats);
             localStorage.setItem('codingProfileStats', JSON.stringify(newStats));
-            
-            // Start 15 minute cooldown
             setCooldown(15 * 60);
             localStorage.setItem('codingProfileCooldown', Date.now().toString());
-
         } catch (error) {
-            console.error('Failed to fetch coding profile stats through proxy API:', error);
+            console.error('Failed to fetch coding profile stats:', error);
         } finally {
             setIsRefreshing(false);
         }
+    }, []);
+
+    // Initialize from local storage, then auto-fetch if no real data cached
+    useEffect(() => {
+        const savedStats = localStorage.getItem('codingProfileStats');
+        const parsedStats = savedStats ? JSON.parse(savedStats) : null;
+
+        if (parsedStats) {
+            setStats(parsedStats);
+        }
+
+        const savedCooldown = localStorage.getItem('codingProfileCooldown');
+        let remaining = 0;
+        if (savedCooldown) {
+            const timePassed = Math.floor((Date.now() - parseInt(savedCooldown, 10)) / 1000);
+            remaining = 15 * 60 - timePassed;
+            if (remaining > 0) {
+                setCooldown(remaining);
+            }
+        }
+
+        setHasLoaded(true);
+
+        // Auto-fetch on load if no cached data exists
+        const hasData = parsedStats?.some(p => p.stats.some(s => s.value > 0));
+        if (!hasData) {
+            fetchStats();
+        }
+    }, [fetchStats]);
+
+    // Countdown timer for cooldown
+    useEffect(() => {
+        if (cooldown <= 0) return;
+        const timer = setInterval(() => {
+            setCooldown(prev => {
+                if (prev <= 1) {
+                    clearInterval(timer);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+        return () => clearInterval(timer);
+    }, [cooldown]);
+
+    const handleRefresh = () => {
+        if (cooldown > 0 || isRefreshing) return;
+        fetchStats();
     };
 
     // Format cooldown seconds to MM:SS
