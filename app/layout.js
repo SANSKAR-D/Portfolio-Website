@@ -3,6 +3,7 @@ import './globals.css';
 import './components.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Background from '@/components/Background';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="dark" className={inter.variable}>
       <body>
+        <Background />
         <Navbar />
         {children}
         <Footer />

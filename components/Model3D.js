@@ -57,7 +57,7 @@ export default function Model3D({ mousePos }) {
         <Canvas
             camera={{ position: [0, 8, 8], fov: 80 }}
             style={{ width: '100%', height: '100%' }}
-            dpr={[1, 2]}
+            dpr={[1, 1.5]}
             gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
             performance={{ min: 0.5 }}
         >

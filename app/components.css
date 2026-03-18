@@ -1532,3 +1532,85 @@
         transform-origin: top center;
     }
 }
+
+/* --- Background Components --- */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: var(--bg-primary); /* Base color behind everything */
+  transition: background-color var(--transition-base);
+}
+
+.background-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.15;
+  mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+}
+
+[data-theme="dark"] .background-grid {
+  opacity: 0.08;
+}
+
+.background-particles {
+  position: absolute;
+  inset: 0;
+  opacity: 0.8;
+}
+
+[data-theme="light"] .background-particles {
+  opacity: 0.4;
+  filter: invert(1);
+}
+
+.background-orb {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: blob 15s infinite alternate;
+  will-change: transform;
+}
+
+[data-theme="dark"] .background-orb {
+  opacity: 0.15;
+}
+
+.background-orb--1 {
+  top: -10%;
+  left: -20%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle at center, var(--accent-primary) 0%, transparent 65%);
+  animation-duration: 20s;
+}
+
+.background-orb--2 {
+  bottom: -20%;
+  right: -10%;
+  width: 60vw;
+  height: 50vw;
+  background: radial-gradient(circle at center, var(--accent-secondary) 0%, transparent 65%);
+  animation-duration: 25s;
+  animation-delay: -5s;
+}
+
+.background-orb--3 {
+  top: 30%;
+  left: 40%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle at center, #8b5cf6 0%, transparent 65%);
+  animation-duration: 30s;
+  animation-delay: -10s;
+}
