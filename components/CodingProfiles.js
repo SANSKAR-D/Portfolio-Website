@@ -47,7 +47,7 @@ const platformConfig = {
     },
     'Codeforces': {
         icon: <SiCodeforces size={28} />,
-        color: '#1f8acb'
+        color: '#f97316'
     }
 };
 

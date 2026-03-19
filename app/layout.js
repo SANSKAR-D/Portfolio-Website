@@ -4,6 +4,7 @@ import './components.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Background from '@/components/Background';
+import ScrollToTop from '@/components/ScrollToTop';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <Background />
         <Navbar />
         {children}
+        <ScrollToTop />
         <Footer />
       </body>
     </html>
