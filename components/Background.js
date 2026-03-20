@@ -9,14 +9,20 @@ function RotatingStars() {
   
   useFrame((state, delta) => {
     if (ref.current) {
+      // Base rotation
       ref.current.rotation.x -= delta / 30;
       ref.current.rotation.y -= delta / 40;
+
+      // Scroll-based interaction (parallax & speed up)
+      const scrollY = window.scrollY;
+      ref.current.rotation.z = scrollY * 0.0002;
+      ref.current.position.y = -scrollY * 0.0005;
     }
   });
 
   return (
     <group ref={ref}>
-      <Stars radius={50} depth={50} count={1200} factor={3} saturation={0} fade speed={1} />
+      <Stars radius={50} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
     </group>
   );
 }

@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
+import Scroll3DWrapper from '@/components/Scroll3DWrapper';
 
 const CodeDashboard = dynamic(() => import('@/components/CodeDashboard'), { ssr: true });
 const Projects = dynamic(() => import('@/components/Projects'), { ssr: true });
@@ -13,11 +14,21 @@ export default function Home() {
     <main>
       <Hero />
       <About />
-      <CodeDashboard />
-      <Projects />
-      <CodingProfiles />
-      <Experience />
-      <Contact />
+      <Scroll3DWrapper>
+        <CodeDashboard />
+      </Scroll3DWrapper>
+      <Scroll3DWrapper>
+        <Projects />
+      </Scroll3DWrapper>
+      <Scroll3DWrapper>
+        <CodingProfiles />
+      </Scroll3DWrapper>
+      <Scroll3DWrapper>
+        <Experience />
+      </Scroll3DWrapper>
+      <Scroll3DWrapper>
+        <Contact />
+      </Scroll3DWrapper>
     </main>
   );
 }
