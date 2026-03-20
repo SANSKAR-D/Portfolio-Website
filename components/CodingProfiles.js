@@ -30,13 +30,6 @@ function useCounter(target, initial = 0, inView, duration = 2000) {
         return () => clearInterval(id);
     }, [inView, target, duration]);
 
-    // Fast-forward initial load if data is already available
-    useEffect(() => {
-        if (target > 0 && count === 0 && !inView) {
-             setCount(target);
-        }
-    }, [target, count, inView]);
-
     return count;
 }
 
@@ -71,7 +64,7 @@ const initialProfileStats = [
 ];
 
 function StatCard({ stat, inView }) {
-    const count = useCounter(stat.value, stat.value, inView);
+    const count = useCounter(stat.value, 0, inView);
     return (
         <div className="profiles__stat">
             <span className="profiles__stat-value">{count.toLocaleString()}</span>

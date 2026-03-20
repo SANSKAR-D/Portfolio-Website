@@ -16,6 +16,34 @@ const highlights = [
     { value: '2+', label: 'Years Coding' },
 ];
 
+const CustomSLogo = () => (
+    <svg viewBox="0 0 100 100" width="1em" height="1em" style={{ overflow: 'visible', display: 'block' }}>
+        <defs>
+            <linearGradient id="s-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#ea580c" />
+                <stop offset="50%" stopColor="#f97316" />
+                <stop offset="100%" stopColor="#fed7aa" />
+            </linearGradient>
+            <mask id="cut-mask">
+                <rect x="-20" y="-20" width="140" height="140" fill="white" />
+                {/* Diagonal cut at bottom left */}
+                <line x1="15" y1="90" x2="45" y2="60" stroke="black" strokeWidth="8" />
+            </mask>
+        </defs>
+        <text 
+            x="50" y="85" 
+            fontFamily="var(--font-sans), system-ui, sans-serif" 
+            fontWeight="900" 
+            fontSize="105" 
+            textAnchor="middle" 
+            fill="url(#s-gradient)" 
+            mask="url(#cut-mask)"
+        >
+            S
+        </text>
+    </svg>
+);
+
 const CardOverlay = ({ index, scrollYProgress, title, logo, children }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
@@ -196,8 +224,8 @@ export default function About() {
                             index={0} 
                             scrollYProgress={scrollYProgress} 
                             title="Intro & Journey"
-                            // A stylish S logo using italic serif text
-                            logo={<span style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1 }}>S</span>}
+                            // Custom S logo with website color scheme and diagonal cut
+                            logo={<CustomSLogo />}
                         >
                             <h3 style={{ fontSize: '2.25rem', fontWeight: 'bold', marginBottom: '1rem' }} className="gradient-text">Hello & My Journey</h3>
                             <p className="about__text" style={{ fontSize: '1.125rem', lineHeight: '1.7' }}>
