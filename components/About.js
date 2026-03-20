@@ -5,51 +5,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import {
     SiCplusplus, SiC, SiPython, SiJavascript, SiNodedotjs,
     SiExpress, SiMysql, SiMongodb, SiGit, SiLinux, SiPostman,
-    SiHtml5, SiCss
+    SiHtml5
 } from 'react-icons/si';
-import { FaJava, FaCode, FaServer, FaDatabase, FaBrain, FaLaptopCode, FaCogs } from 'react-icons/fa';
+import { FaJava, FaServer, FaBrain, FaLaptopCode, FaCogs } from 'react-icons/fa';
 
-const skillCategories = [
-    {
-        label: 'Languages',
-        icon: <FaCode />,
-        skills: [
-            { name: 'C++', icon: <SiCplusplus /> },
-            { name: 'C', icon: <SiC /> },
-            { name: 'Python', icon: <SiPython /> },
-            { name: 'JavaScript', icon: <SiJavascript /> },
-            { name: 'Java', icon: <FaJava /> },
-            { name: 'HTML', icon: <SiHtml5 /> },
-            { name: 'CSS', icon: <SiCss /> },
-        ],
-    },
-    {
-        label: 'Backend & Web',
-        icon: <FaServer />,
-        skills: [
-            { name: 'Node.js', icon: <SiNodedotjs /> },
-            { name: 'Express.js', icon: <SiExpress /> },
-            { name: 'REST APIs', icon: <FaServer /> },
-        ],
-    },
-    {
-        label: 'Databases',
-        icon: <FaDatabase />,
-        skills: [
-            { name: 'MySQL', icon: <SiMysql /> },
-            { name: 'MongoDB', icon: <SiMongodb /> },
-        ],
-    },
-    {
-        label: 'Tools & OS',
-        icon: <SiGit />,
-        skills: [
-            { name: 'Git', icon: <SiGit /> },
-            { name: 'Linux', icon: <SiLinux /> },
-            { name: 'Postman', icon: <SiPostman /> },
-        ],
-    },
-];
 
 const highlights = [
     { value: '500+', label: 'Problems Solved' },
@@ -275,12 +234,11 @@ export default function About() {
                                 Focused on delivering reliable REST APIs, database management, and scalable web solutions.
                             </p>
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem' }}>
-                                {skillCategories.find(c => c.label === 'Backend & Web').skills.map(s => (
-                                    <span key={s.name} className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>{s.icon} {s.name}</span>
-                                ))}
-                                {skillCategories.find(c => c.label === 'Databases').skills.map(s => (
-                                    <span key={s.name} className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>{s.icon} {s.name}</span>
-                                ))}
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiNodedotjs /> Node.js</span>
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiExpress /> Express.js</span>
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><FaServer /> REST APIs</span>
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiMysql /> MySQL</span>
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiMongodb /> MongoDB</span>
                                 <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiJavascript /> JavaScript</span>
                                 <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiHtml5 /> HTML/CSS</span>
                             </div>
@@ -319,12 +277,12 @@ export default function About() {
                                 Building efficient solutions with a focus on performance and clean code principles.
                             </p>
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem' }}>
-                                {skillCategories.find(c => c.label === 'Languages').skills.filter(s => ['C++', 'C', 'Java'].includes(s.name)).map(s => (
-                                    <span key={s.name} className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>{s.icon} {s.name}</span>
-                                ))}
-                                {skillCategories.find(c => c.label === 'Tools & OS').skills.map(s => (
-                                    <span key={s.name} className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>{s.icon} {s.name}</span>
-                                ))}
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiCplusplus /> C++</span>
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiC /> C</span>
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><FaJava /> Java</span>
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiGit /> Git</span>
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiLinux /> Linux</span>
+                                <span className="glass-card" style={{ padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}><SiPostman /> Postman</span>
                             </div>
                         </CardOverlay>
 
