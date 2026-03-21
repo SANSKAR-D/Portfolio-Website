@@ -11,6 +11,7 @@ const projects = [
         github: 'https://github.com/SANSKAR-D',
         live: 'https://example.com',
         featured: true,
+        popupImage: '/computer.png'
     },
 ];
 
@@ -38,36 +39,49 @@ export default function Projects() {
                 {projects.map((project, i) => (
                     <motion.div
                         key={project.title}
-                        className={`projects__card glass-card ${project.featured ? 'projects__card--featured' : ''}`}
+                        className="projects__card-wrapper"
                         variants={cardVariants}
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: '-60px' }}
                         transition={{ delay: i * 0.1 }}
-                        whileHover={{ y: -6 }}
                     >
-                        {project.featured && (
-                            <span className="badge">
-                                <FaStar size={10} /> Featured
-                            </span>
-                        )}
-                        <h3 className="projects__title">{project.title}</h3>
-                        <p className="projects__desc">{project.description}</p>
-                        <div className="projects__tags">
-                            {project.tags.map((tag) => (
-                                <span key={tag} className="tag">{tag}</span>
-                            ))}
-                        </div>
-                        <div className="projects__links">
-                            {project.github && (
-                                <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="projects__link">
-                                    <FaGithub size={18} />
-                                </a>
-                            )}
-                            {project.live && (
-                                <a href={project.live} target="_blank" rel="noopener noreferrer" aria-label="Live Demo" className="projects__link">
-                                    <FaExternalLinkAlt size={16} />
-                                </a>
+                        <div className={`projects__card glass-card ${project.featured ? 'projects__card--featured' : ''}`}>
+                            <div className="projects__card-content">
+                                {project.featured && (
+                                    <span className="badge">
+                                        <FaStar size={10} /> Featured
+                                    </span>
+                                )}
+                                <h3 className="projects__title">{project.title}</h3>
+                                <p className="projects__desc">{project.description}</p>
+                                <div className="projects__tags">
+                                    {project.tags.map((tag) => (
+                                        <span key={tag} className="tag">{tag}</span>
+                                    ))}
+                                </div>
+                                <div className="projects__links">
+                                    {project.github && (
+                                        <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="projects__link">
+                                            <FaGithub size={18} />
+                                        </a>
+                                    )}
+                                    {project.live && (
+                                        <a href={project.live} target="_blank" rel="noopener noreferrer" aria-label="Live Demo" className="projects__link">
+                                            <FaExternalLinkAlt size={16} />
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                            {project.popupImage && (
+                                <>
+                                    <img src={project.popupImage} alt={`${project.title} popup view`} className="projects__popup-img" />
+                                    <span className="projects__popup-text">
+                                        {project.title.split(' ').map((word, wordIndex) => (
+                                            <span key={wordIndex} style={{ display: 'block' }}>{word}</span>
+                                        ))}
+                                    </span>
+                                </>
                             )}
                         </div>
                     </motion.div>

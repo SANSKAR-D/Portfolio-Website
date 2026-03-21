@@ -146,19 +146,25 @@ export default function Hero() {
 
                 <motion.div className="hero__tech" variants={itemVariants}>
                     <p className="hero__tech-label">Tech Stack</p>
-                    <div className="hero__tech-icons">
-                        {techStack.map((tech) => (
-                            <motion.div
-                                key={tech.name}
-                                className="hero__tech-icon"
-                                title={tech.name}
-                                whileHover={{ y: -6, scale: 1.15 }}
-                                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                            >
-                                {tech.icon}
-                                <span className="hero__tech-name">{tech.name}</span>
-                            </motion.div>
-                        ))}
+                    <div className="hero__tech-scroll-container">
+                        <div className="hero__tech-marquee">
+                            {[1, 2, 3, 4].map((group) => (
+                                <div key={group} className="hero__tech-icons">
+                                    {techStack.map((tech) => (
+                                        <motion.div
+                                            key={tech.name}
+                                            className="hero__tech-icon"
+                                            title={tech.name}
+                                            whileHover={{ y: -6, scale: 1.15 }}
+                                            transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                                        >
+                                            {tech.icon}
+                                            <span className="hero__tech-name">{tech.name}</span>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </motion.div>
             </motion.div>
