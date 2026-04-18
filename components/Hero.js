@@ -134,7 +134,7 @@ export default function Hero() {
                 </motion.p>
 
                 <motion.div className="hero__ctas" variants={itemVariants}>
-                    <a href="/resume.pdf" className="btn btn--primary" download>
+                    <a href="/NIT_Allahabad_Resume.pdf" className="btn btn--primary" download="Sanskar_Gupta_Resume.pdf">
                         <HiDownload size={18} />
                         Download Resume
                     </a>
