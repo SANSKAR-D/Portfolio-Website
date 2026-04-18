@@ -12,8 +12,7 @@
 ## ✨ Features
 
 ### 🦸 Hero Section
-- Impactful bio and introduction with CTA buttons (Download Resume, View Projects)
-- Animated background with dynamic visuals
+- Impactful bio and introduction with CTA buttons (Download Resume, View Projects)- Animated background with dynamic visuals
 - Tech stack icon showcase
 
 ### 🧊 3D Model Integration
