@@ -6,7 +6,7 @@ import { useRef } from 'react';
 
 function RotatingStars() {
   const ref = useRef();
-  
+
   useFrame((state, delta) => {
     if (ref.current) {
       // Base rotation
@@ -34,15 +34,15 @@ export default function Background() {
       <div className="background-orb background-orb--1"></div>
       <div className="background-orb background-orb--2"></div>
       <div className="background-orb background-orb--3"></div>
-      
+
       {/* 1. Subtle Animated Grid */}
       <div className="background-grid"></div>
 
       {/* 3. 3D Particles */}
       <div className="background-particles">
-        <Canvas 
+        <Canvas
           camera={{ position: [0, 0, 1] }}
-          dpr={[1, 1]} 
+          dpr={[1, 1]}
           gl={{ powerPreference: "high-performance", antialias: false, alpha: true }}
         >
           <RotatingStars />

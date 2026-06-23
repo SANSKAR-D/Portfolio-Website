@@ -12,13 +12,10 @@ const socials = [
 export default function Footer() {
     return (
         <footer className="footer">
-            <div className="footer__gradient-border" />
             <div className="footer__inner">
                 <div className="footer__brand">
                     <span className="footer__logo">
-                        <span className="navbar__logo-bracket">&lt;</span>
-                        <span className="navbar__logo-name">Sanskar</span>
-                        <span className="navbar__logo-bracket">/&gt;</span>
+                        Sanskar
                     </span>
                     <p className="footer__tagline">Building things for the web.</p>
                 </div>

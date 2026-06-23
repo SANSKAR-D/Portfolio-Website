@@ -49,9 +49,7 @@ export default function Navbar() {
         >
             <div className="navbar__inner">
                 <a href="#hero" className="navbar__logo">
-                    <span className="navbar__logo-bracket">&lt;</span>
                     <span className="navbar__logo-name">Sanskar</span>
-                    <span className="navbar__logo-bracket">/&gt;</span>
                 </a>
 
                 <div className="navbar__links">
@@ -63,36 +61,6 @@ export default function Navbar() {
                 </div>
 
                 <div className="navbar__actions">
-                    <button
-                        className="navbar__theme-toggle"
-                        onClick={toggleTheme}
-                        aria-label="Toggle theme"
-                    >
-                        <AnimatePresence mode="wait">
-                            {theme === 'dark' ? (
-                                <motion.span
-                                    key="sun"
-                                    initial={{ rotate: -90, opacity: 0 }}
-                                    animate={{ rotate: 0, opacity: 1 }}
-                                    exit={{ rotate: 90, opacity: 0 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    <BsSunFill size={18} />
-                                </motion.span>
-                            ) : (
-                                <motion.span
-                                    key="moon"
-                                    initial={{ rotate: 90, opacity: 0 }}
-                                    animate={{ rotate: 0, opacity: 1 }}
-                                    exit={{ rotate: -90, opacity: 0 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    <BsMoonStarsFill size={18} />
-                                </motion.span>
-                            )}
-                        </AnimatePresence>
-                    </button>
-
                     <button
                         className="navbar__hamburger"
                         onClick={() => setMobileOpen(!mobileOpen)}

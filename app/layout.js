@@ -1,4 +1,4 @@
-import { Inter } from 'next/font/google';
+import { Inter, Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
 import './components.css';
 import Navbar from '@/components/Navbar';
@@ -13,13 +13,19 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-bricolage',
+});
+
 export const metadata = {
-  title: 'Sanskar Gupta — Backend Developer & Competitive Programmer',
+  title: 'Sanskar Gupta — AI Engineer & Competitive Programmer',
   description:
-    'Personal portfolio of Sanskar Gupta — a backend developer and competitive programmer. Explore projects, coding profiles, and get in touch.',
-  keywords: ['developer', 'portfolio', 'backend', 'competitive programming', 'react', 'nextjs'],
+    'Personal portfolio of Sanskar Gupta — an AI engineer and competitive programmer. Explore projects, coding profiles, and get in touch.',
+  keywords: ['developer', 'portfolio', 'ai', 'ai engineer', 'competitive programming', 'react', 'nextjs'],
   openGraph: {
-    title: 'Sanskar Gupta — Backend Developer',
+    title: 'Sanskar Gupta — AI Engineer',
     description: 'Explore my projects, coding profiles, and experience.',
     type: 'website',
   },
@@ -27,7 +33,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme="dark" className={inter.variable}>
+    <html lang="en" data-theme="dark" className={`${inter.variable} ${bricolage.variable}`}>
       <body>
         <Background />
         <Navbar />

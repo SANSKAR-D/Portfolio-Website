@@ -207,6 +207,16 @@ const charMaps = {
 export default function CodeDashboard() {
     const [frontId, setFrontId] = useState('cpp');
     const [charIndex, setCharIndex] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 900);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
     
     // We only type on the front board.
     const activeMap = charMaps[frontId];
@@ -313,17 +323,17 @@ export default function CodeDashboard() {
                 key={board.id}
                 className="code-dashboard__window"
                 animate={{
-                    // Front and back isometric perspective
-                    rotateX: 15,
-                    rotateY: 35,
-                    rotateZ: -15,
+                    // Front and back isometric perspective (only on desktop)
+                    rotateX: isMobile ? 0 : 15,
+                    rotateY: isMobile ? 0 : 35,
+                    rotateZ: isMobile ? 0 : -15,
                     // Offset stack: back board goes up and left
-                    x: isFront ? 0 : 60,
-                    y: isFront ? 0 : -80,
-                    z: isFront ? 50 : -100,
-                    scale: isFront ? 1 : 0.85,
-                    opacity: isFront ? 1 : 0.4,
-                    filter: isFront ? 'blur(0px)' : 'blur(4px)',
+                    x: isMobile ? 0 : (isFront ? 0 : 60),
+                    y: isMobile ? 0 : (isFront ? 0 : -80),
+                    z: isMobile ? 0 : (isFront ? 50 : -100),
+                    scale: isMobile ? (isFront ? 1 : 0.95) : (isFront ? 1 : 0.85),
+                    opacity: isMobile ? (isFront ? 1 : 0) : (isFront ? 1 : 0.4),
+                    filter: isMobile ? 'none' : (isFront ? 'blur(0px)' : 'blur(4px)'),
                 }}
                 transition={{
                     type: 'spring',
@@ -332,12 +342,13 @@ export default function CodeDashboard() {
                     mass: 1,
                 }}
                 style={{
-                    position: isFront ? 'relative' : 'absolute',
+                    position: isMobile ? 'relative' : (isFront ? 'relative' : 'absolute'),
                     top: 0,
                     left: 0,
                     width: '100%',
                     zIndex: isFront ? 10 : 1,
-                    pointerEvents: isFront ? 'auto' : 'none'
+                    pointerEvents: isFront ? 'auto' : 'none',
+                    display: isMobile ? (isFront ? 'block' : 'none') : 'block'
                 }}
             >
                 {/* Simulated Glow */}
@@ -424,7 +435,6 @@ export default function CodeDashboard() {
             </motion.div>
         );
     };
-
     return (
         <section className="section code-dashboard" id="code-dashboard">
             <motion.div
@@ -438,6 +448,26 @@ export default function CodeDashboard() {
                     Mastery across multiple languages — switching contexts smoothly.
                 </p>
             </motion.div>
+
+            {/* Language switch tabs for mobile viewports */}
+            {isMobile && (
+                <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.5rem', justifyContent: 'center' }}>
+                    <button 
+                        onClick={() => { setFrontId('cpp'); setCharIndex(0); }} 
+                        className={`btn ${frontId === 'cpp' ? 'btn--primary' : 'btn--secondary'}`}
+                        style={{ padding: '0.5rem 1.5rem', fontSize: 'var(--text-xs)', height: 'auto', minWidth: '100px', justifyContent: 'center' }}
+                    >
+                        C++
+                    </button>
+                    <button 
+                        onClick={() => { setFrontId('python'); setCharIndex(0); }} 
+                        className={`btn ${frontId === 'python' ? 'btn--primary' : 'btn--secondary'}`}
+                        style={{ padding: '0.5rem 1.5rem', fontSize: 'var(--text-xs)', height: 'auto', minWidth: '100px', justifyContent: 'center' }}
+                    >
+                        Python
+                    </button>
+                </div>
+            )}
 
             {/* 3D Scene Container */}
             <motion.div

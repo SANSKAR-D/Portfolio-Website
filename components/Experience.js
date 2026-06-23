@@ -42,7 +42,6 @@ export default function Experience() {
             </motion.div>
 
             <div className="timeline">
-                <div className="timeline__line" />
                 {timeline.map((item, i) => (
                     <motion.div
                         key={i}

@@ -35,12 +35,12 @@ function useCounter(target, initial = 0, inView, duration = 2000) {
 
 const platformConfig = {
     'LeetCode': {
-        icon: <SiLeetcode size={28} />,
-        color: '#ffa116'
+        icon: <SiLeetcode size={28} color="#ffffff" style={{ color: '#ffffff', fill: '#ffffff' }} />,
+        color: '#ffffff'
     },
     'Codeforces': {
-        icon: <SiCodeforces size={28} />,
-        color: '#f97316'
+        icon: <SiCodeforces size={28} color="#ffffff" style={{ color: '#ffffff', fill: '#ffffff' }} />,
+        color: '#ffffff'
     }
 };
 

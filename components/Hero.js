@@ -1,187 +1,124 @@
 'use client';
 
-import { useRef, useCallback, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-    SiCplusplus, SiC, SiPython, SiNodedotjs,
-    SiExpress, SiJavascript
+  SiCplusplus, SiC, SiPython, SiNodedotjs,
+  SiJavascript, SiFastapi, SiLangchain
 } from 'react-icons/si';
-import { HiDownload, HiArrowDown } from 'react-icons/hi';
-
-// Dynamically import the 3D model to avoid SSR issues with WebGL
-const Model3D = dynamic(() => import('./Model3D'), { ssr: false });
+import { FaProjectDiagram, FaBrain } from 'react-icons/fa';
+import { HiDownload, HiArrowRight } from 'react-icons/hi';
 
 const techStack = [
-    { icon: <SiCplusplus />, name: 'C++' },
-    { icon: <SiC />, name: 'C' },
-    { icon: <SiPython />, name: 'Python' },
-    { icon: <SiNodedotjs />, name: 'Node.js' },
-    { icon: <SiExpress />, name: 'Express.js' },
-    { icon: <SiJavascript />, name: 'JavaScript' },
+  { icon: <SiPython />, name: 'Python' },
+  { icon: <SiLangchain />, name: 'Langchain' },
+  { icon: <FaProjectDiagram />, name: 'Langgraph' },
+  { icon: <FaBrain />, name: 'RAG' },
+  { icon: <SiFastapi />, name: 'FastAPI' },
+  { icon: <SiCplusplus />, name: 'C++' },
+  { icon: <SiNodedotjs />, name: 'Node.js' },
 ];
 
 const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: { staggerChildren: 0.08, delayChildren: 0.3 }
-    }
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+  }
 };
 
 const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
 };
 
-function TypewriterName() {
-    const fullText = 'Sanskar Gupta';
-    const splitAt = 8; // length of "Sanskar "
-    const [charIndex, setCharIndex] = useState(0);
-    const [cursorVisible, setCursorVisible] = useState(true);
-
-    useEffect(() => {
-        // Short initial delay before typing starts
-        const startDelay = setTimeout(() => {
-            setCharIndex(1);
-        }, 600);
-        return () => clearTimeout(startDelay);
-    }, []);
-
-    useEffect(() => {
-        if (charIndex === 0 || charIndex >= fullText.length) {
-            if (charIndex >= fullText.length) {
-                // Hide cursor after typing finishes
-                const hide = setTimeout(() => setCursorVisible(false), 2000);
-                return () => clearTimeout(hide);
-            }
-            return;
-        }
-        const timer = setTimeout(() => setCharIndex(c => c + 1), 120);
-        return () => clearTimeout(timer);
-    }, [charIndex]);
-
-    const displayed = fullText.slice(0, charIndex);
-    const plain = displayed.slice(0, splitAt);
-    const gradient = displayed.slice(splitAt);
-
-    return (
-        <>
-            {plain}
-            {gradient && <span className="gradient-text">{gradient}</span>}
-            {cursorVisible && <span className="hero__cursor" aria-hidden="true">|</span>}
-        </>
-    );
-}
+const roles = ["AI Engineer", "Competitive Programmer", "Problem Solver"];
 
 export default function Hero() {
-    const modelRef = useRef(null);
-    // Use a ref for mouse position to avoid re-renders
-    const mousePos = useRef({ x: 0, y: 0 });
+  const [roleIndex, setRoleIndex] = useState(0);
 
-    const handleMouseMove = useCallback((e) => {
-        const rect = modelRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        // Normalize to -1 ... +1 within the model container only
-        mousePos.current = {
-            x: ((e.clientX - rect.left) / rect.width) * 2 - 1,
-            y: ((e.clientY - rect.top) / rect.height) * 2 - 1,
-        };
-    }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
-    const handleMouseLeave = useCallback(() => {
-        mousePos.current = { x: 0, y: 0 };
-    }, []);
+  return (
+    <section className="hero" id="hero">
+      {/* Left: Text Content */}
+      <motion.div
+        className="hero__content"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.p className="hero__greeting" variants={itemVariants}>
+          Hi, I&apos;m
+        </motion.p>
 
-    return (
-        <section className="hero" id="hero">
-            {/* Ambient Glow Blobs */}
-            <div className="hero__blob hero__blob--1" />
-            <div className="hero__blob hero__blob--2" />
-            <div className="hero__blob hero__blob--3" />
+        <motion.h1 className="hero__name" variants={itemVariants}>
+          Sanskar Gupta
+        </motion.h1>
 
-            {/* Left: Text Content */}
-            <motion.div
-                className="hero__content"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
+        <motion.div className="hero__tagline-container" variants={itemVariants}>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={roleIndex}
+              className="hero__tagline"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
             >
-                {/* Avatar photo placeholder — above the name */}
-                <motion.div className="hero__avatar" variants={itemVariants}>
-                    <div className="hero__avatar-ring" />
-                    <div className="hero__avatar-frame">
-                        <div className="hero__avatar-inner">
-                            <span className="hero__avatar-label">Your Photo</span>
-                        </div>
-                    </div>
-                </motion.div>
+              {roles[roleIndex]}
+            </motion.p>
+          </AnimatePresence>
+        </motion.div>
 
-                <motion.p className="hero__greeting" variants={itemVariants}>
-                    Hey there, I&apos;m
-                </motion.p>
+        <motion.p className="hero__description" variants={itemVariants}>
+          I build intelligent AI systems and love solving algorithmic problems.
+          Passionate about Large Language Models, scalable architecture, and open-source.
+        </motion.p>
 
-                <motion.h1 className="hero__name" variants={itemVariants}>
-                    <TypewriterName />
-                </motion.h1>
+        <motion.div className="hero__ctas" variants={itemVariants}>
+          <a href="#projects" className="btn btn--primary">
+            View Projects
+            <HiArrowRight size={18} />
+          </a>
+          <a href="/NIT_Allahabad_Resume.pdf" className="btn btn--secondary" download="Sanskar_Gupta_Resume.pdf">
+            <HiDownload size={18} />
+            Download Resume
+          </a>
+        </motion.div>
 
-                <motion.p className="hero__tagline" variants={itemVariants}>
-                    Backend Developer &amp; Competitive Programmer
-                </motion.p>
+        <motion.div className="hero__tech" variants={itemVariants}>
+          <div className="hero__tech-icons">
+            {techStack.map((tech) => (
+              <div key={tech.name} className="hero__tech-icon" title={tech.name}>
+                {tech.icon}
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
 
-                <motion.p className="hero__description" variants={itemVariants}>
-                    I build performant web applications and love solving algorithmic problems.
-                    Passionate about clean code, scalable architecture, and open-source.
-                </motion.p>
-
-                <motion.div className="hero__ctas" variants={itemVariants}>
-                    <a href="/NIT_Allahabad_Resume.pdf" className="btn btn--primary" download="Sanskar_Gupta_Resume.pdf">
-                        <HiDownload size={18} />
-                        Download Resume
-                    </a>
-                    <a href="#projects" className="btn btn--secondary">
-                        <HiArrowDown size={18} />
-                        View Projects
-                    </a>
-                </motion.div>
-
-                <motion.div className="hero__tech" variants={itemVariants}>
-                    <p className="hero__tech-label">Tech Stack</p>
-                    <div className="hero__tech-scroll-container">
-                        <div className="hero__tech-marquee">
-                            {[1, 2, 3, 4].map((group) => (
-                                <div key={group} className="hero__tech-icons">
-                                    {techStack.map((tech) => (
-                                        <motion.div
-                                            key={tech.name}
-                                            className="hero__tech-icon"
-                                            title={tech.name}
-                                            whileHover={{ y: -6, scale: 1.15 }}
-                                            transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                                        >
-                                            {tech.icon}
-                                            <span className="hero__tech-name">{tech.name}</span>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </motion.div>
-            </motion.div>
-
-            {/* Right: 3D Model — mouse tracking scoped to this container only */}
-            <motion.div
-                className="hero__model"
-                ref={modelRef}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                initial={{ opacity: 0, x: 60 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-            >
-                <div className="hero__model-glow" />
-                <Model3D mousePos={mousePos} />
-            </motion.div>
-        </section>
-    );
+      {/* Right: Image Container */}
+      <motion.div
+        className="hero__image-container"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+      >
+        <Image 
+          src="/hero.png" 
+          alt="Sanskar Gupta" 
+          width={800} 
+          height={1000} 
+          className="hero__image" 
+          priority
+        />
+      </motion.div>
+    </section>
+  );
 }
