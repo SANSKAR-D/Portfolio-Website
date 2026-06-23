@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
-import { BsSunFill, BsMoonStarsFill } from 'react-icons/bs';
 
 const navLinks = [
     { label: 'Home', href: '#hero' },
@@ -17,26 +16,12 @@ const navLinks = [
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [theme, setTheme] = useState('dark');
-
-    useEffect(() => {
-        const saved = localStorage.getItem('theme') || 'dark';
-        setTheme(saved);
-        document.documentElement.setAttribute('data-theme', saved);
-    }, []);
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 40);
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
-
-    const toggleTheme = () => {
-        const next = theme === 'dark' ? 'light' : 'dark';
-        setTheme(next);
-        localStorage.setItem('theme', next);
-        document.documentElement.setAttribute('data-theme', next);
-    };
 
     const closeMobile = () => setMobileOpen(false);
 
