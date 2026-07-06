@@ -1,6 +1,6 @@
 # 🌟 Sanskar Gupta — Portfolio Website
 
-> *A personal developer portfolio built with Next.js, featuring live competitive programming stats, a 3D model, and a clean component-based architecture.*
+> *A personal developer portfolio built with Next.js, featuring live competitive programming stats, interactive 3D rendering, and a clean component-based architecture.*
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=nextdotjs&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
@@ -12,12 +12,13 @@
 ## ✨ Features
 
 ### 🦸 Hero Section
-- Impactful bio and introduction with CTA buttons (Download Resume, View Projects)- Animated background with dynamic visuals
+- Impactful bio and introduction with CTA buttons (Download Resume, View Projects)
+- Animated background with dynamic visuals
 - Tech stack icon showcase
 
-### 🧊 3D Model Integration
-- Interactive 3D model rendered via `Model3D.js`
-- Scroll-linked 3D wrapper (`Scroll3DWrapper.js`) for immersive parallax
+### 🧊 3D graphics & Interactive Canvas
+- Rotating 3D stylized planet model rendered inside the Contact section using React Three Fiber
+- Scroll-linked 3D wrapper (`Scroll3DWrapper.js`) for immersive layout tilt animations
 - Scroll progress indicator
 
 ### 🏆 Live Coding Stats Dashboard
@@ -50,11 +51,11 @@
 
 | Layer | Technology |
 |---|---|
-| **Framework** | Next.js 14 (App Router) |
+| **Framework** | Next.js 16 (App Router) |
 | **Language** | JavaScript |
-| **Styling** | CSS Modules (`globals.css`, `components.css`) |
-| **3D Rendering** | Three.js / React Three Fiber (`Model3D.js`) |
-| **API** | Next.js Route Handlers (`/app/api/profiles/route.js`) |
+| **Styling** | Vanilla CSS (`globals.css`, `components.css`) |
+| **3D Rendering** | Three.js / React Three Fiber (`Contact.js`) |
+| **API & Email** | Next.js Route Handlers, Nodemailer |
 | **Deployment** | Vercel |
 
 ---
@@ -65,6 +66,8 @@
 Portfolio-Website/
 ├── app/
 │   ├── api/
+│   │   ├── contact/
+│   │   │   └── route.js        # Nodemailer Contact Form handler
 │   │   └── profiles/
 │   │       └── route.js        # Live LeetCode + Codeforces API handler
 │   ├── layout.js               # Root layout with metadata & fonts
@@ -77,16 +80,16 @@ Portfolio-Website/
 │   ├── Projects.js             # Projects gallery
 │   ├── CodingProfiles.js       # Competitive programming cards
 │   ├── CodeDashboard.js        # Live stats dashboard
-│   ├── Experience.js           # Timeline section
-│   ├── Contact.js              # Contact form + socials
+│   ├── Experience.js           # Timeline section (education, certifications)
+│   ├── Contact.js              # Contact form + socials + 3D planet
 │   ├── Navbar.js               # Navigation bar
 │   ├── Footer.js               # Footer
 │   ├── Background.js           # Animated background
-│   ├── Model3D.js              # 3D model renderer
-│   ├── Scroll3DWrapper.js      # Scroll-linked 3D parallax
+│   ├── Scroll3DWrapper.js      # Scroll-linked 3D layout effects
 │   ├── ScrollProgress.js       # Scroll progress bar
 │   └── ScrollToTop.js          # Back-to-top button
 ├── public/                     # Static assets
+├── .env.example                # Email SMTP setup template
 ├── PRD.md                      # Product Requirements Document
 ├── next.config.mjs
 └── package.json
@@ -141,12 +144,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 npm run build
 npm start
 ```
-
-## 🗺️ Roadmap
-
-- [ ] Visitor analytics (Umami / Google Analytics)
-
----
 
 ## 📧 Contact
 
