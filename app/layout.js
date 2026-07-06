@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import Background from '@/components/Background';
 import ScrollToTop from '@/components/ScrollToTop';
 import ScrollProgress from '@/components/ScrollProgress';
+import Script from 'next/script';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,6 +36,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="dark" className={`${inter.variable} ${bricolage.variable}`}>
       <body>
+        <Script 
+          src="https://cloud.umami.is/script.js" 
+          data-website-id="358fc997-02f2-4293-a3bb-edd182236ecb" 
+          strategy="afterInteractive"
+        />
         <Background />
         <Navbar />
         <ScrollProgress />
