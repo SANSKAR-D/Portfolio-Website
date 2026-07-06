@@ -11,7 +11,7 @@ const projects = [
     description: 'A full-stack competitive programming judge built from scratch with a custom isolated Docker-based code execution engine supporting parallel evaluation.',
     tags: ['React', 'Node.js', 'Docker', 'MongoDB', 'Three.js', 'Monaco Editor'],
     github: 'https://github.com/SANSKAR-D/Web-Dev-Projects/tree/main/KnightCode',
-    live: 'https://knightcode.vercel.app/',
+    live: 'https://knightcode-xi.vercel.app/',
     image: '/knightcode.png'
   },
   {
@@ -27,6 +27,7 @@ const projects = [
     year: '2026',
     description: 'This very portfolio — a modern, animated Next.js site with dark mode, scroll animations, and minimalist aesthetic.',
     tags: ['Next.js', 'Framer Motion', 'CSS'],
+    live:'https://sanskar-gupta-portfolio.vercel.app/',
     github: 'https://github.com/SANSKAR-D/Portfolio-Website',
     image: '/computer.png'
   }
