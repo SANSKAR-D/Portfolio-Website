@@ -10,7 +10,7 @@ import { useGLTF, OrbitControls } from '@react-three/drei';
 
 const socials = [
     { icon: <FaGithub size={20} />, href: 'https://github.com/SANSKAR-D', label: 'GitHub' },
-    { icon: <FaLinkedinIn size={20} />, href: 'https://linkedin.com', label: 'LinkedIn' },
+    { icon: <FaLinkedinIn size={20} />, href: 'https://www.linkedin.com/in/sanskargupta-', label: 'LinkedIn' },
     { icon: <HiOutlineMail size={20} />, href: 'mailto:sethsanskar@gmail.com', label: 'Email' },
 ];
 
@@ -85,14 +85,32 @@ export default function Contact() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus('sending');
-        setTimeout(() => {
-            setStatus('sent');
-            setForm({ name: '', email: '', message: '' });
-            setTimeout(() => setStatus('idle'), 3000);
-        }, 1500);
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(form),
+            });
+
+            if (res.ok) {
+                setStatus('sent');
+                setForm({ name: '', email: '', message: '' });
+                setTimeout(() => setStatus('idle'), 3000);
+            } else {
+                const data = await res.json().catch(() => ({}));
+                alert(data.error || 'Failed to send message. Please ensure environment variables are configured.');
+                setStatus('idle');
+            }
+        } catch (error) {
+            console.error('Failed to submit contact form:', error);
+            alert('Something went wrong. Please check your network and try again.');
+            setStatus('idle');
+        }
     };
 
     return (

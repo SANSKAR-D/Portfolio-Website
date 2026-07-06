@@ -1,15 +1,18 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const highlights = [
-    { value: '500+', label: 'Problems Solved' },
-    { value: '10+', label: 'Projects Built' },
-    { value: '2+', label: 'Years Coding' },
-    { value: '1st', label: 'Hackathon Prize' },
+    { value: '800+', label: 'Problems Solved' },
+    { value: '4+', label: 'Projects Built' },
+    { value: '1+', label: 'Year Coding' },
+    { value: '2', label: 'Hackathons Participated' },
 ];
 
 export default function About() {
+    const [isExpanded, setIsExpanded] = useState(false);
+
     return (
         <section className="section" id="about">
             <motion.div
@@ -24,7 +27,7 @@ export default function About() {
                 </p>
             </motion.div>
 
-            <div className="about__grid">
+            <div className={`about__grid ${isExpanded ? 'about__grid--expanded' : ''}`}>
                 {/* Left: Text Content */}
                 <motion.div 
                     className="about__content"
@@ -34,20 +37,39 @@ export default function About() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
                     <p className="about__text">
-                        Hi, I&apos;m <strong>Sanskar Gupta</strong> — a passionate AI Engineer
-                        and Competitive Programmer. I enjoy designing intelligent, scalable systems
-                        and love the intellectual challenge of algorithmic problem-solving.
+                        Hi, I&apos;m <strong>Sanskar Gupta</strong>, a Computer Science & Engineering student at <strong>Motilal Nehru National Institute of Technology (MNNIT) Allahabad</strong> (Class of 2029). I specialize in building intelligent AI systems, custom backend architectures, and solving complex algorithmic challenges.
                     </p>
-                    <p className="about__text">
-                        I&apos;m currently pursuing my studies in Computer Science, building a solid
-                        foundation in data structures, algorithms, and AI systems. Outside
-                        of coursework, I actively participate in coding contests on platforms like
-                        Codeforces and LeetCode.
-                    </p>
-                    <p className="about__text">
-                        My primary focus these days is building robust AI architectures using LLMs, Langchain, Langgraph, RAG, and FastAPI, while continuing to level up my problem-solving skills.
-                    </p>
-                    <div style={{ marginTop: 'var(--space-md)' }}>
+                    
+                    <AnimatePresence initial={false}>
+                        {isExpanded && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                style={{ overflow: 'hidden' }}
+                            >
+                                <p className="about__text" style={{ marginTop: '1rem' }}>
+                                    My engineering journey is driven by a deep passion for problem-solving. As a competitive programmer, I have earned the <strong>Knight badge on LeetCode</strong> (solving over 800+ DSA questions), achieved a <strong>2-Star rating on CodeChef</strong>, and rank as a <strong>Pupil on Codeforces</strong>. This rigorous training shapes my analytical mindset and helps me write highly optimized, clean code.
+                                </p>
+                                <p className="about__text" style={{ marginTop: '1rem' }}>
+                                    Beyond competitive coding, I love developing end-to-end applications. From designing isolated Docker sandboxes for custom code execution engines in projects like <em>KnightCode</em> to creating interactive 3D landing pages using Three.js and Monaco Editor, I enjoy tackling complex systems and UI styling.
+                                </p>
+                                <p className="about__text" style={{ marginTop: '1rem' }}>
+                                    Currently, my primary focus lies in the field of Artificial Intelligence and Machine Learning. I enjoy developing local RAG pipelines, working with agentic LLM structures using LangChain, and orchestrating vector databases like ChromaDB. I am also fascinated by hardware-level integration, having secured <strong>3rd Position in the Robomania Trail Blitz</strong> robotics competition at MNNIT.
+                                </p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    <div style={{ marginTop: 'var(--space-md)', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                        <button 
+                            onClick={() => setIsExpanded(!isExpanded)} 
+                            className="btn btn--secondary"
+                            style={{ cursor: 'pointer' }}
+                        >
+                            {isExpanded ? 'Read Less' : 'Read More'}
+                        </button>
                         <a href="#contact" className="btn btn--primary">
                             Get In Touch
                         </a>
@@ -55,20 +77,23 @@ export default function About() {
                 </motion.div>
 
                 {/* Right: Stats Grid */}
-                <motion.div 
-                    className="about__stats-grid"
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: '-80px' }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                    {highlights.map((stat, i) => (
-                        <div key={i} className="glass-card about__stat-card">
-                            <div className="about__stat-value">{stat.value}</div>
-                            <div className="about__stat-label">{stat.label}</div>
-                        </div>
-                    ))}
-                </motion.div>
+                <AnimatePresence mode="wait">
+                    <motion.div 
+                        key={isExpanded ? 'expanded' : 'collapsed'}
+                        className={`about__stats-grid ${isExpanded ? 'about__stats-grid--expanded' : ''}`}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ duration: 0.25 }}
+                    >
+                        {highlights.map((stat, i) => (
+                            <div key={i} className="glass-card about__stat-card">
+                                <div className="about__stat-value">{stat.value}</div>
+                                <div className="about__stat-label">{stat.label}</div>
+                            </div>
+                        ))}
+                    </motion.div>
+                </AnimatePresence>
             </div>
         </section>
     );

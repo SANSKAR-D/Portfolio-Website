@@ -2,18 +2,34 @@
 
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import Image from 'next/image';
 
 const projects = [
+  {
+    title: 'KnightCode',
+    year: '2026',
+    description: 'A full-stack competitive programming judge built from scratch with a custom isolated Docker-based code execution engine supporting parallel evaluation.',
+    tags: ['React', 'Node.js', 'Docker', 'MongoDB', 'Three.js', 'Monaco Editor'],
+    github: 'https://github.com/SANSKAR-D/Web-Dev-Projects/tree/main/KnightCode',
+    live: 'https://knightcode.vercel.app/',
+    image: '/knightcode.png'
+  },
+  {
+    title: 'YT RAG Assistant',
+    year: '2026',
+    description: 'A local full-stack AI application that ingests YouTube video transcripts and enables semantic Q&A using Ollama, ChromaDB, and a FastAPI backend pipeline.',
+    tags: ['Python', 'FastAPI', 'React', 'Ollama', 'ChromaDB', 'LangChain'],
+    github: 'https://github.com/SANSKAR-D/youtube-rag-assistant',
+    image: '/rag_assistant.png'
+  },
   {
     title: 'Portfolio Website',
     year: '2026',
     description: 'This very portfolio — a modern, animated Next.js site with dark mode, scroll animations, and minimalist aesthetic.',
     tags: ['Next.js', 'Framer Motion', 'CSS'],
-    github: 'https://github.com/SANSKAR-D',
-    live: 'https://example.com',
-    image: '/computer.png' // using the popupImage as the card image for now
-  },
-  // Add more projects here
+    github: 'https://github.com/SANSKAR-D/Portfolio-Website',
+    image: '/computer.png'
+  }
 ];
 
 const cardVariants = {
@@ -32,7 +48,7 @@ export default function Projects() {
       >
         <h2 className="section__heading">Selected Work</h2>
         <p className="section__subheading">
-          Things I&apos;ve built - from web apps to systems projects.
+          Things I&apos;ve built - from web apps to AI projects.
         </p>
       </motion.div>
 
@@ -49,7 +65,7 @@ export default function Projects() {
           >
             {project.image && (
               <div className="projects__image-container">
-                <img src={project.image} alt={project.title} className="projects__image" />
+                <Image src={project.image} alt={project.title} width={500} height={312} className="projects__image" />
               </div>
             )}
             

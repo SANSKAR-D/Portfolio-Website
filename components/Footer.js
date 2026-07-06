@@ -5,7 +5,7 @@ import { HiOutlineMail } from 'react-icons/hi';
 
 const socials = [
     { icon: <FaGithub size={20} />, href: 'https://github.com/SANSKAR-D', label: 'GitHub' },
-    { icon: <FaLinkedinIn size={20} />, href: 'https://linkedin.com', label: 'LinkedIn' },
+    { icon: <FaLinkedinIn size={20} />, href: 'https://www.linkedin.com/in/sanskargupta-', label: 'LinkedIn' },
     { icon: <HiOutlineMail size={20} />, href: 'mailto:sethsanskar@gmail.com', label: 'Email' },
 ];
 

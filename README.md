@@ -142,26 +142,8 @@ npm run build
 npm start
 ```
 
-### Deploy on Vercel
-
-The easiest way to deploy is via [Vercel](https://vercel.com):
-
-```bash
-npm install -g vercel
-vercel
-```
-
-Or connect your GitHub repo directly at [vercel.com/new](https://vercel.com/new).
-
----
-
 ## 🗺️ Roadmap
 
-- [x] Hero, About, Projects, Experience, Contact sections
-- [x] Live LeetCode & Codeforces stats API
-- [x] 3D model with scroll parallax
-- [x] GitHub contribution heatmap embed
-- [ ] Deploy live and link in GitHub profile
 - [ ] Visitor analytics (Umami / Google Analytics)
 
 ---
@@ -170,7 +152,7 @@ Or connect your GitHub repo directly at [vercel.com/new](https://vercel.com/new)
 
 **Sanskar Gupta**
 - 📧 sethsanskar856@gmail.com
-- 💼 [LinkedIn](https://linkedin.com/in/sanskar-gupta-b64214394)
+- 💼 [LinkedIn](https://www.linkedin.com/in/sanskargupta-)
 - 🐙 [GitHub](https://github.com/SANSKAR-D)
 - 🏆 [Codolio](https://codolio.com/profile/SANSKAR-D)
 - 💻 [LeetCode](https://leetcode.com/u/sanskarguptadsa/)
